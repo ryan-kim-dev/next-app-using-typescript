@@ -1,5 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import axios from 'axios';
@@ -17,7 +18,9 @@ const Home: NextPage<{ characters: Character[] }> = ({ characters }) => {
       {characters.map(character => {
         return (
           <div key={character.id}>
-            {character.name}
+            <Link href={`/characters/${character.id}`}>
+              <h3>{character.name}</h3>
+            </Link>
             <Image
               loader={imageLoader}
               unoptimized
@@ -35,10 +38,10 @@ const Home: NextPage<{ characters: Character[] }> = ({ characters }) => {
 
 export const getStaticProps: GetStaticProps = async context => {
   const res = await axios.get('https://rickandmortyapi.com/api/character');
-  const data: GetCharacterResults = await res.data.results;
+  const results: GetCharacterResults = await res.data.results;
   return {
     props: {
-      characters: data,
+      characters: results,
     },
   };
 };
