@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 type Props = {};
@@ -7,24 +8,42 @@ export default function Navbar({}: Props) {
   const router = useRouter();
   return (
     <nav>
-      <Link href="/">
-        <span className={router.pathname === '/' ? 'active' : ''}>홈</span>
-      </Link>
-      <Link href="/about">
-        <span className={router.pathname === '/about' ? 'active' : ''}>
-          About
-        </span>
-      </Link>
+      <Image src="/vercel.svg" alt="logo" width={100} height={100} />
+      <div>
+        <Link href="/">
+          <span className={router.pathname === '/' ? 'active' : ''}>홈</span>
+        </Link>
+        <Link href="/about">
+          <span className={router.pathname === '/about' ? 'active' : ''}>
+            About
+          </span>
+        </Link>
+      </div>
       <style jsx>{`
         nav {
-          border: 1px solid green;
-          color: red;
           display: flex;
-          justify-content: space-evenly;
+          gap: 10px;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 20px;
+          padding-bottom: 10px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+            rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+        img {
+          max-width: 100px;
+          margin-bottom: 5px;
+        }
+        nav a {
+          font-weight: 600;
+          font-size: 18px;
         }
         .active {
-          color: red;
-          border: 3px solid red;
+          color: tomato;
+        }
+        nav div {
+          display: flex;
+          gap: 10px;
         }
       `}</style>
     </nav>
