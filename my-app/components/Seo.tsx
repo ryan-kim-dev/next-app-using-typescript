@@ -7,7 +7,7 @@ type SeoProps = {
 export default function Seo({ title }: SeoProps) {
   return (
     <Head>
-      <title>{title} | Next Movies</title>
+      <title>{`${title} | Next Movies`}</title>
     </Head>
   );
 }
