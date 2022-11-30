@@ -18,7 +18,7 @@ export default function Detail({
 export const getServerSideProps: GetServerSideProps = async ({
   query: { params },
 }) => {
-  console.log(params);
+  // async 지우면 에러
   return {
     props: {
       params,
