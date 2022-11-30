@@ -1,26 +1,56 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Seo from '../components/Seo';
 import axios from 'axios';
 import { MovieProps } from '../types/movies';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useRouter } from 'next/router';
 
 export default function Home({
   results,
 }: InferGetServerSidePropsType<GetServerSideProps>) {
+  const router = useRouter();
+
+  const onClick = (id: number, title: string) => {
+    router.push(
+      {
+        pathname: `/movies/${id}`,
+        query: {
+          title,
+        },
+      },
+      `/movies/${id}`
+    );
+  };
+
   return (
     <div className="container">
       <Seo title="Home" />
       {results?.map((movie: MovieProps) => {
         return (
-          <div className="movie" key={movie.id}>
+          <div
+            className="movie"
+            key={movie.id}
+            onClick={() => onClick(movie.id, movie.original_title)}
+          >
             <Image
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               width={500}
               height={500}
               alt="poster"
             />
-            <h4>{movie.original_title}</h4>
+            <Link
+              href={{
+                pathname: `/movies/${movie.id}`,
+                query: {
+                  title: movie.original_title,
+                },
+              }}
+              as={`/movies/${movie.id}`}
+            >
+              <h4>{movie.original_title}</h4>
+            </Link>
           </div>
         );
       })}
