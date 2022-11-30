@@ -13,15 +13,7 @@ export default function Home({
   const router = useRouter();
 
   const onClick = (id: number, title: string) => {
-    router.push(
-      {
-        pathname: `/movies/${id}`,
-        query: {
-          title,
-        },
-      },
-      `/movies/${id}`
-    );
+    router.push(`/movies/${title}/${id}`);
   };
 
   return (
@@ -40,15 +32,7 @@ export default function Home({
               height={500}
               alt="poster"
             />
-            <Link
-              href={{
-                pathname: `/movies/${movie.id}`,
-                query: {
-                  title: movie.original_title,
-                },
-              }}
-              as={`/movies/${movie.id}`}
-            >
+            <Link href={`/movies/${movie.original_title}/${movie.id}`}>
               <h4>{movie.original_title}</h4>
             </Link>
           </div>
