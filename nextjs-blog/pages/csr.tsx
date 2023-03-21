@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Layout, SubLayout } from '../components';
 
 export default function CSR() {
   const [time, setTime] = useState('');
@@ -9,8 +10,16 @@ export default function CSR() {
   }, []);
 
   return (
-    <div>
-      <span>{time}</span>
-    </div>
+    <>
+      <h1>{time}</h1>
+    </>
   );
 }
+
+CSR.getLayout = function getLayout(page: Element) {
+  return (
+    <Layout>
+      <SubLayout>{page}</SubLayout>
+    </Layout>
+  );
+};
