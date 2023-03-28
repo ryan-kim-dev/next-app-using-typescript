@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { SiProbot } from 'react-icons/si';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const Home: NextPage = () => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [result, setResult] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
           data.error || new Error(`요청 실패! 상태코드: ${response.status}`)
         );
       }
+      setResult(data.result);
     } catch (error) {
       alert(error);
     }
@@ -56,6 +58,10 @@ const Home: NextPage = () => {
           />
           <button type="submit">제출</button>
         </form>
+        <div>
+          <span>결과</span>
+          <pre>{result}</pre>
+        </div>
       </main>
     </>
   );
